@@ -7,11 +7,11 @@ URL shortener API
 - List all short url
 - Fetch single short url
 
-#### Technologies Ussed
+#### Technologies Used
 - MongoDb
 - Nodjs
 
-#### Dependencies Ussed
+#### Dependencies Used
 
 - Mongoose: connect MongoDB database
 - Shortid: create short unique strings
