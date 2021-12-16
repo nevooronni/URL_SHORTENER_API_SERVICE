@@ -7,6 +7,19 @@ URL shortener API
 - List all short url
 - Fetch single short url
 
+#### Technologies Used
+- MongoDb
+- Nodjs
+
+#### Dependencies Used
+
+- Mongoose: connect MongoDB database
+- Shortid: create short unique strings
+- Validate.js: validate the URLs received
+- Dotenv: load environment variables
+- CORS: allow access from our client app
+- Express: back-end web framework
+
 #### How should this be manually tested?
 
 - install nodejs from here [official Node.js website](https://nodejs.org/en/)
