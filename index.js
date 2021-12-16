@@ -14,7 +14,7 @@ const urlDb = require('./Controller/url');
 
 //CORS VARIABLES ACCEPT CLIENT REQUEST FROM THIS ORIGIN
 const corsOptions = {
-  origin: 'http://localhost:8080',
+  origin: 'http://localhost:3000',
   optionsSuccessStatus: 200
 };
 
@@ -25,22 +25,25 @@ app.use(bodyParser.json());
 app.listen(port, () => console.log('listening port ' + port));
 
 //ENDPOINTS
+//create short url
 app.post('/url', async (req, res) => {
   try {
     if (!!services.validateUrl(req.body.url)) {
-      return res.status(400).send({ message: 'invalide url string!' });
+      return res.status(400).send({ message: 'invalide url please enter a valid url!' });
     }
+
     //genearte shortId
     const urlKey = services.generateUrlKey();
-    const shortUrl = `http://${host}:${port}/${urlKey}`;
+    const shortUrl = `http://${port}/${urlKey}`;
 
     await urlDb.save(req.body.url, shortUrl, urlKey);
-    return res.statue(200).send({ message: 'url was shortened successfully', url: shortUrl });
+    return res.status(200).send({ message: 'url was shortened successfully', url: shortUrl });
   } catch (error) {
     return res.status(500).send({ message: 'There was an error that occured while making your request please try again!' })
   }
 });
 
+//Get short url
 app.get('/:urlId', async (req, res) => {
   try {
     const url = await urlDb.find(req.params.urlId);
@@ -49,5 +52,16 @@ app.get('/:urlId', async (req, res) => {
     return res.status(500).send({ message: 'There was an error that occured while making your request please try again!' })
   }
 });
+
+//Get all short all
+app.get('/url/all', async (req, res) => {
+  try {
+    const urls = await urlDb.findAll();
+    return !urls ? res.status(400).send({ message: 'no urls found!' }) : res.status(200).send({ message: 'urls fetched fetched successfully', urls: urls });
+  } catch (error) {
+    return res.status(500).send({ message: 'There was an error that occured while making your request please try again!' })
+  }
+});
+
 
 
