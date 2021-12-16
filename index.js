@@ -34,7 +34,7 @@ app.post('/url', async (req, res) => {
 
     //genearte shortId
     const urlKey = services.generateUrlKey();
-    const shortUrl = `http://${port}/${urlKey}`;
+    const shortUrl = `http://${host}:${port}/${urlKey}`;
 
     await urlDb.save(req.body.url, shortUrl, urlKey);
     return res.status(200).send({ message: 'url was shortened successfully', url: shortUrl });
